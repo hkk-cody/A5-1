@@ -392,7 +392,7 @@ Ridge 벌점의 기울기는 $w$가 작아질수록 같이 작아져서 0에 도
 
 이 데이터에서 실제로 관찰되는 경향(표준화 후, Train 8,000건 기준):
 
-- **Lasso**: 점수와 무관한 `age`, `spending_score`, `credit_card_count`는 작은 Alpha에서 이미 0이 됩니다. Alpha가 커지면 `debt_ratio`, `overdue_count_6m`, `annual_income` 계수도 줄어들고, Alpha=100에서는 모든 계수가 0이 되어 R²가 0 근처로 떨어질 수 있습니다.
+- **Lasso**: 점수와 무관한 `age`, `spending_score`, `credit_card_count`는 Alpha=0.01, 0.1에서도 0에 매우 가깝고(절댓값 0.3 미만), Alpha=1부터 정확히 0이 됩니다. Alpha가 커지면 `debt_ratio`, `overdue_count_6m`, `annual_income` 계수도 줄어들고, Alpha=100에서는 모든 계수가 0이 되어 R²가 0 근처로 떨어질 수 있습니다.
 - **Ridge**: 이 범위의 Alpha에서는 계수가 거의 변하지 않을 수 있습니다. Ridge 벌점의 상대적 크기는 샘플 수에 비해 작기 때문입니다. 그래프가 평평해도 잘못된 것이 아니며, 그 이유를 README에 해석하면 됩니다.
 
 ### 흔한 오해
@@ -422,7 +422,7 @@ $z$가 0이면 반반, 클수록 1에 가깝습니다. 계수 $w_j$가 양수면
 ### 과제와의 연결
 
 - 과제는 분류 모델의 출력으로 **연체 확률(0~1)** 을 요구합니다. scikit-learn에서는 `predict_proba(X)[:, 1]`이 클래스 1(연체)의 확률입니다.
-- `predict(X)`는 확률이 0.5 이상이면 1로 바꾼 결과입니다. 이 0.5를 **임계값(threshold)** 이라 하며 11장에서 다룹니다.
+- `predict(X)`는 확률이 0.5를 넘으면 1로 바꾼 결과입니다. 이 0.5를 **임계값(threshold)** 이라 하며 11장에서 다룹니다.
 - 로지스틱 회귀도 기본적으로 L2 규제를 씁니다(`C`가 작을수록 규제가 강함. `C`는 Alpha의 역수 개념).
 
 ## 10. 분류 지표와 Confusion Matrix
@@ -727,7 +727,7 @@ Test 데이터의 평균과 표준편차 정보가 Train 변환에 반영되어 
 
 <details><summary>정답 보기</summary>
 
-오차는 `[2, -2, 0]`입니다. MAE $= (2+2+0)/3 \approx 1.33$, RMSE $= \sqrt{(4+4+0)/3} = \sqrt{2.67} \approx 1.63$.
+오차(실제 − 예측)는 `[-2, 2, 0]`입니다. MAE $= (2+2+0)/3 \approx 1.33$, RMSE $= \sqrt{(4+4+0)/3} = \sqrt{2.67} \approx 1.63$.
 </details>
 
 4. Alpha를 100으로 키웠을 때 Ridge와 Lasso 계수는 각각 어떻게 다르게 변하나요?

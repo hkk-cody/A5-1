@@ -236,7 +236,7 @@ def build_preprocessor(num_cols, cat_cols):
 
 **할 일**
 
-1. 기본 분류 모델로 `LogisticRegression`을 Pipeline에 넣는다(원문 비교표 예시의 두 번째 행).
+1. 기본 분류 모델로 `LogisticRegression`을 Pipeline에 넣는다(권장. 원문 비교표 예시의 두 번째 행이며, 필수 요건은 아님).
 2. 불균형 처리를 적용한다: `class_weight="balanced"` **또는** SMOTE.
 3. `predict_proba(X_test)[:, 1]`로 연체 확률을 얻는다.
 4. Accuracy, Precision, Recall, F1, AUC를 계산한다.
@@ -316,7 +316,7 @@ RocCurveDisplay.from_predictions(y_true, y_score, name="...")   # y_score는 확
 
 **할 일**
 
-1. 분류 비교표: 행 = 규칙 기반, Logistic Regression, 앙상블(튜닝). 열 = 최소 Accuracy, F1-Score, AUC(최종 결과물 1). Precision, Recall도 넣는 것을 권장.
+1. 분류 비교표: 행 = 규칙 기반, Logistic Regression(7단계에서 만들었다면), 앙상블(튜닝). 열 = 최소 Accuracy, F1-Score, AUC(최종 결과물 1). Precision, Recall도 넣는 것을 권장.
 2. 회귀 비교표: 행 = Ridge, Lasso(선택한 Alpha 명시). 열 = RMSE, MAE, R² 중 2개 이상.
 3. 베이스라인 대비 향상률을 계산한다(원문 README 예시 참고).
 
